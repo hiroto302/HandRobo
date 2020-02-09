@@ -13,6 +13,8 @@ public class RobotController : MonoBehaviour
         {"Both", null},
     };
 
+    List<RobotMotion> motions = new List<RobotMotion>();  //ロボのアニメーション管理
+
     void Start()
     {
         foreach(var key in new List<string>(pose.Keys))  //var = KeyValuePair<string, int>、 foreachでは途中で値を変更することができないためListを利用
@@ -23,23 +25,36 @@ public class RobotController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+        if(motions.Count > 0)
         {
-            Pose("Both");
+            bool finished = motions[0].Animate(this, Time.deltaTime);
+            if (finished)
+            {
+                motions.RemoveAt(0);
+            }
         }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            Pose("Left");
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            Pose("Right");
-        }
-        else
-        {
-            Pose("Normal");
-        }
+        // if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+        // {
+        //     Pose("Both");
+        // }
+        // else if (Input.GetKey(KeyCode.A))
+        // {
+        //     Pose("Left");
+        // }
+        // else if (Input.GetKey(KeyCode.S))
+        // {
+        //     Pose("Right");
+        // }
+        // else
+        // {
+        //     Pose("Normal");
+        // }
 }
+
+    public void AddMotion(RobotMotion m)
+    {
+        motions.Add(m);
+    }
 
     public void Pose(string p)
     {

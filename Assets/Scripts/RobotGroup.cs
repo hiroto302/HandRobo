@@ -20,6 +20,18 @@ public class RobotGroup{
                 robots.Add(obj.GetComponent<RobotController>());  //生成したロボットの保存
             }
         }
+
+        //アニメーションテスト
+        robots[0].AddMotion(new RobotMotion(
+            (r, p) =>
+            {
+                if (p >= 0.5)
+                {
+                    r.Pose("Both");
+                }
+            }, 2f
+
+        ));
     }
 }
 
