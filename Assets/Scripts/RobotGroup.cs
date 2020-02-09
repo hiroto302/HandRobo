@@ -20,18 +20,25 @@ public class RobotGroup{
                 robots.Add(obj.GetComponent<RobotController>());  //生成したロボットの保存
             }
         }
-
         //アニメーションテスト
-        robots[0].AddMotion(new RobotMotion(
-            (r, p) =>
-            {
-                if (p >= 0.5)
-                {
-                    r.Pose("Both");
-                }
-            }, 2f
+        // robots[0].AddMotion(new RobotMotion(
+        //     (r, p) =>
+        //     {
+        //         if (p >= 0.5)
+        //         {
+        //             r.Pose("Both");
+        //         }
+        //     }, 2f
+        // ));
+    }
 
-        ));
+     public void MotionRandom(RobotMotion[] motions)
+    {
+        foreach(var r in robots)
+        {
+            int sel = Random.Range (0, motions.Length);
+            r.AddMotion(new RobotMotion(motions[sel]));
+        }
     }
 }
 

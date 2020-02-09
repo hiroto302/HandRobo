@@ -21,6 +21,53 @@ public class RobotGenerator : MonoBehaviour
 
     void Update()
     {
-        
+        int mcode = MouseCode();
+        if(mcode == 1 || mcode == 2)
+        {
+            RobotMotion[] motions = new RobotMotion[] {
+                new RobotMotion(
+                    (r, p) =>
+                    {
+                        if (p >= 0.5)
+                        {
+                            r.Pose("Left");
+                        }
+                    }, 2f
+                    ),
+                new RobotMotion(
+                    (r, p) =>
+                    {
+                        if (p >= 0.5)
+                        {
+                            r.Pose("Right");
+                        }
+                    }, 2f
+                    ),
+            };
+
+            foreach(var g in groups)
+            {
+                g.MotionRandom(motions);
+            }
+        }
+    }
+    int MouseCode()
+    {
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+        {
+            return 3;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            return 1;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            return 2;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

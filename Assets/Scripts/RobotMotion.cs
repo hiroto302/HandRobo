@@ -10,6 +10,10 @@ public class RobotMotion
     float duration;  //Animationの終了時間
     float pastTime = 0;  //経過時間
 
+    public RobotMotion(RobotMotion src) : this(src.animation, src.duration)
+    {
+        
+    }
     public RobotMotion(Action<RobotController, float> animation, float duration)
     {
         this.animation = animation;  //クラス変数をこのメソッドの引数に指定した変数に代入

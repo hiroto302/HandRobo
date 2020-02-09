@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RobotController : MonoBehaviour
 {
+    public bool ManualDance = false;
     // 使用する画像を連想配列に格納するために初期化
     Dictionary<string, Sprite> pose = new Dictionary<string, Sprite>()
     {
@@ -33,22 +34,26 @@ public class RobotController : MonoBehaviour
                 motions.RemoveAt(0);
             }
         }
-        // if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
-        // {
-        //     Pose("Both");
-        // }
-        // else if (Input.GetKey(KeyCode.A))
-        // {
-        //     Pose("Left");
-        // }
-        // else if (Input.GetKey(KeyCode.S))
-        // {
-        //     Pose("Right");
-        // }
-        // else
-        // {
-        //     Pose("Normal");
-        // }
+
+        if(ManualDance == true)
+        {
+            if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+            {
+                Pose("Both");
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                Pose("Left");
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                Pose("Right");
+            }
+            else
+            {
+                Pose("Normal");
+            }
+        }
 }
 
     public void AddMotion(RobotMotion m)
