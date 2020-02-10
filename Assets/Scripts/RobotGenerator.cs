@@ -30,7 +30,7 @@ public class RobotGenerator : MonoBehaviour
                     {
                         if (p >= 0.5)
                         {
-                            r.Pose("Left");
+                            r.Pose("Right");
                         }
                     }, 2f
                     ),
@@ -39,15 +39,44 @@ public class RobotGenerator : MonoBehaviour
                     {
                         if (p >= 0.5)
                         {
-                            r.Pose("Right");
+                            r.Pose("Left");
                         }
                     }, 2f
                     ),
             };
 
-            foreach(var g in groups)
+            List<int>[] selected = new List<int>[]
             {
-                g.MotionRandom(motions);
+                new List<int>(){0,0},
+                new List<int>(){0,0},
+            };
+            for(int cnt=0;cnt<groups.Count;cnt++)
+            {
+                groups[cnt].MotionRandom(motions, selected[cnt]);
+            }
+
+            RobotMotion dance = new RobotMotion(
+                (r, p) =>
+                {
+                    r.GetComponent<Transform>().localRotation =
+                    Quaternion.Euler(0, 360f * p, 0);
+                }, 2f
+            );
+
+
+            if (selected[0][mcode-1] > selected[1][mcode - 1])
+            {
+                Debug.Log("左");
+                // groups[0].MotionAll(dance);
+            }
+            else if(selected[0][mcode - 1] < selected[1][mcode - 1])
+            {
+                Debug.Log("右");
+                // groups[1].MotionAll(dance);
+            }
+            else
+            {
+                Debug.Log("引き分け");
             }
         }
     }

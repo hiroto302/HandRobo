@@ -32,12 +32,13 @@ public class RobotGroup{
         // ));
     }
 
-     public void MotionRandom(RobotMotion[] motions)
+     public void MotionRandom(RobotMotion[] motions, List<int> selected)
     {
         foreach(var r in robots)
         {
             int sel = Random.Range (0, motions.Length);
             r.AddMotion(new RobotMotion(motions[sel]));
+            selected[sel]++;
         }
     }
 }
